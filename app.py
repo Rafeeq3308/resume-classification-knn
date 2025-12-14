@@ -13,8 +13,14 @@ STOPWORDS = set(stopwords.words("english"))
 # -----------------------------
 # LOAD SAVED MODELS
 # -----------------------------
-tfidf = joblib.load("models/tfidf_vectorizer.pkl")
-knn_model = joblib.load("models/knn_grid_model.pkl")
+import os
+import joblib
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+tfidf = joblib.load(os.path.join(BASE_DIR, "tfidf_vectorizer.pkl"))
+knn_model = joblib.load(os.path.join(BASE_DIR, "knn_grid_model.pkl"))
+
 
 # -----------------------------
 # TEXT EXTRACTION FUNCTIONS
@@ -71,3 +77,4 @@ if uploaded_file is not None:
         prediction = knn_model.predict(vector)
 
         st.success(f" Predicted Class (Numeric Label): **{prediction[0]}**")
+
